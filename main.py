@@ -3,6 +3,7 @@
 import os
 import random
 import string
+import time
 
 path = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,9 +13,13 @@ def generate_password():
     password = ''
     return password.join(random.choice(characters) for _ in range(DEFAULT_LENGTH))
 
-def create_file(email: string, password: string):
+def generate_date():
+    now = time.strftime("%c")
+    return now
+
+def create_file(email: string, password: string, date: string):
     file = open(f"{path}/passwords/passwords.txt", "a+")
-    file.write(f"Krowd Credential \nEmail: {email}\nPassword: {password}\n")
+    file.write(f"Krowd Credential \nEmail: {email}\nPassword: {password}\nCreated: {date}\n\n")
     file.close()
     return "password.txt"
 
@@ -24,7 +29,8 @@ def open_file(file_name: string):
 def main():
     email = input("\nWELCOME TO KROWD PASSWORD GENERATOR\n===================================\nCreated by Zulwiyoza Putra on 18/01/18.\nCopyright © 2018 Krowd. All rights reserved.\n\nWhat is the email?\n")
     password = generate_password()
-    file_name = create_file(email, password)
+    created = generate_date()
+    file_name = create_file(email, password, created)
     open_file(file_name)
 
 if __name__ == "__main__":
